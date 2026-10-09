@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("PortfolioNFT",()=>{it("mints and transfers",async()=>{const [a,b]=await ethers.getSigners();const C=await ethers.getContractFactory("PortfolioNFT");const c=await C.deploy();await c.mint("ipfs://demo");expect(await c.ownerOf(1)).eq(a.address);await c.transferFrom(a.address,b.address,1);expect(await c.ownerOf(1)).eq(b.address);});});

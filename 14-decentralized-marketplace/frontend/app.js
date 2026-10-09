@@ -1,0 +1,1 @@
+let provider,signer;document.getElementById("connect").onclick=async()=>{if(!window.ethereum){document.getElementById("status").textContent="Install a browser Ethereum wallet.";return;}provider=new ethers.BrowserProvider(window.ethereum);signer=await provider.getSigner();document.getElementById("status").textContent="Connected: "+await signer.getAddress();};

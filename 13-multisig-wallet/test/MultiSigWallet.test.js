@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("MultiSigWallet",()=>{it("requires confirmations",async()=>{const [a,b]=await ethers.getSigners();const C=await ethers.getContractFactory("MultiSigWallet");const c=await C.deploy([a.address,b.address],2);await c.submit(b.address,0,"0x");await c.confirm(0);await expect(c.execute(0)).revertedWith("Not enough confirmations");await c.connect(b).confirm(0);await c.execute(0);});});

@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("SimpleMarketplace",()=>{it("lists and sells a listing record",async()=>{const [s,b]=await ethers.getSigners();const C=await ethers.getContractFactory("SimpleMarketplace");const c=await C.deploy();await c.list(ethers.ZeroAddress,1,1000);expect((await c.listings(0)).seller).eq(s.address);await c.connect(b).buy(0,{value:1000});expect((await c.listings(0)).active).false;});});

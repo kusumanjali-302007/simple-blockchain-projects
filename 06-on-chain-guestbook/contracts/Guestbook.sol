@@ -1,0 +1,3 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+contract Guestbook { struct Message{address author;string text;uint256 timestamp;} Message[] private messages; event MessagePosted(address indexed author,string text,uint256 timestamp); function postMessage(string calldata text) external {require(bytes(text).length>0&&bytes(text).length<=280,"Invalid message");messages.push(Message(msg.sender,text,block.timestamp));emit MessagePosted(msg.sender,text,block.timestamp);} function getMessages() external view returns(Message[] memory){return messages;} function messageCount() external view returns(uint256){return messages.length;}}

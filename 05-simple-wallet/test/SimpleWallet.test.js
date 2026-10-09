@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("SimpleWallet",()=>{it("deposits and withdraws",async()=>{const [u]=await ethers.getSigners();const C=await ethers.getContractFactory("SimpleWallet");const c=await C.deploy();await c.deposit({value:ethers.parseEther("1")});expect(await c.balances(u.address)).eq(ethers.parseEther("1"));await c.withdraw(ethers.parseEther("0.4"));expect(await c.balances(u.address)).eq(ethers.parseEther("0.6"));});});

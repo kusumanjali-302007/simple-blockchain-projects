@@ -1,0 +1,3 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+contract OnChainTodo { struct Task{string text;bool completed;} mapping(address=>Task[]) private tasks; event TaskCreated(address indexed user,uint256 indexed id,string text); event TaskCompleted(address indexed user,uint256 indexed id); function addTask(string calldata text) external {require(bytes(text).length>0,"Empty task");tasks[msg.sender].push(Task(text,false));emit TaskCreated(msg.sender,tasks[msg.sender].length-1,text);} function completeTask(uint256 id) external {require(id<tasks[msg.sender].length,"Bad id");tasks[msg.sender][id].completed=true;emit TaskCompleted(msg.sender,id);} function getTasks() external view returns(Task[] memory){return tasks[msg.sender];}}

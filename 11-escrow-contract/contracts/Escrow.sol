@@ -1,0 +1,3 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+contract Escrow { address public immutable buyer; address payable public immutable seller; address public immutable arbiter; uint256 public amount; bool public funded; bool public released; constructor(address payable s,address a){require(s!=address(0)&&a!=address(0),"Bad address");buyer=msg.sender;seller=s;arbiter=a;} function fund() external payable {require(msg.sender==buyer,"Buyer only");require(!funded,"Funded");require(msg.value>0,"Zero");amount=msg.value;funded=true;} function release() external {require(msg.sender==buyer||msg.sender==arbiter,"Unauthorized");require(funded&&!released,"Invalid state");released=true;(bool ok,)=seller.call{value:amount}("");require(ok,"Transfer failed");}}

@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("EligibleVoting",()=>{it("restricts voting",async()=>{const [admin,v]=await ethers.getSigners();const C=await ethers.getContractFactory("EligibleVoting");const c=await C.deploy(3);await c.setEligible(v.address,true);await c.connect(v).vote(1);expect(await c.votes(1)).eq(1n);await expect(c.connect(v).vote(0)).revertedWith("Already voted");});});

@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("DigitalNotary",()=>{it("registers and verifies a hash",async()=>{const [u]=await ethers.getSigners();const C=await ethers.getContractFactory("DigitalNotary");const c=await C.deploy();await c.waitForDeployment();const h=ethers.keccak256(ethers.toUtf8Bytes("file"));await c.registerFile(h);const r=await c.verifyFile(h);expect(r[0]).true;expect(r[2]).eq(u.address);});});

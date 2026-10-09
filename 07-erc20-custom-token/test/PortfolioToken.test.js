@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("PortfolioToken",()=>{it("transfers, mints and burns",async()=>{const [a,b]=await ethers.getSigners();const C=await ethers.getContractFactory("PortfolioToken");const c=await C.deploy(1000);await c.transfer(b.address,10n*10n**18n);expect(await c.balanceOf(b.address)).eq(10n*10n**18n);await c.mint(5);expect(await c.balanceOf(a.address)).eq(995n*10n**18n);await c.burn(1);});});

@@ -1,0 +1,3 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+contract CounterVoting { uint256 public counter; mapping(address=>bool) public voted; uint256 public yesVotes; uint256 public noVotes; event Vote(address indexed voter,bool support); function increment() external {counter++;} function vote(bool support) external {require(!voted[msg.sender],"Already voted"); voted[msg.sender]=true; if(support) yesVotes++; else noVotes++; emit Vote(msg.sender,support);} }

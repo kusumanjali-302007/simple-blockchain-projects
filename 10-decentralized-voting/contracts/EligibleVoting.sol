@@ -1,0 +1,3 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+contract EligibleVoting { address public admin; mapping(address=>bool) public eligible; mapping(address=>bool) public voted; mapping(uint256=>uint256) public votes; uint256 public optionCount; constructor(uint256 n){require(n>1&&n<=20,"Bad options");admin=msg.sender;optionCount=n;} function setEligible(address voter,bool value) external {require(msg.sender==admin,"Admin only");eligible[voter]=value;} function vote(uint256 option) external {require(eligible[msg.sender],"Not eligible");require(!voted[msg.sender],"Already voted");require(option<optionCount,"Bad option");voted[msg.sender]=true;votes[option]++;}}

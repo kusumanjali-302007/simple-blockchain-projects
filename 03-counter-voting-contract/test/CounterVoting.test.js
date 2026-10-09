@@ -1,0 +1,3 @@
+const { expect } = require("chai");
+const { ethers } = require("hardhat");
+describe("CounterVoting",()=>{it("increments and prevents double voting",async()=>{const C=await ethers.getContractFactory("CounterVoting");const c=await C.deploy();await c.increment();expect(await c.counter()).eq(1n);await c.vote(true);expect(await c.yesVotes()).eq(1n);await expect(c.vote(false)).revertedWith("Already voted");});});
